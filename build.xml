@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<project name="jcgm" default="run" basedir="."> 
+  <property name="src" value="src"/>
+  <property name="dest" value="classes"/>
+  <property name="jcgm_jar" value="jcgm.jar"/>
+  <target name="init">
+    <mkdir dir="${dest}"/>
+  </target> 
+  <target name="compile" depends="init">   
+    <javac srcdir="${src}" destdir="${dest}" includeantruntime="on"/>
+  </target>
+  <target name="build" depends="compile">  
+    <jar jarfile="${jcgm_jar}" basedir="${dest}"/>
+  </target> 
+  <target name="run" depends="build">    
+    <java classname="net.sf.jcgm.examples.WebViewer" classpath="${jcgm_jar}"/>
+  </target>
+  <target name="clean">   
+    <delete dir="${dest}" />
+    <delete file="${jcgm_jar}" />
+  </target>
+	<target name="rerun" depends="clean,run">    
+    <ant target="clean" />
+    <ant target="run" />
+  </target>
+</project>
